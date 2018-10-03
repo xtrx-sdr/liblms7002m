@@ -1,0 +1,314 @@
+[
+{
+    "addr" : "0x0020",
+    "fields" : {
+        "LRST_TX_B" : {"bits":"15"},
+        "MRST_TX_B" : {"bits":"14"},
+        "LRST_TX_A" : {"bits":"13"},
+        "MRST_TX_A" : {"bits":"12"},
+        "LRST_RX_B" : {"bits":"11"},
+        "MRST_RX_B" : {"bits":"10"},
+        "LRST_RX_A" : {"bits":"9"},
+        "MRST_RX_A" : {"bits":"8"},
+        "SRST_RXFIFO" : {"bits":"7"},
+        "SRST_TXFIFO" : {"bits":"6"},
+        "RXEN_B" : {"bits":"5"},
+        "RXEN_A" : {"bits":"4"},
+        "TXEN_B" : {"bits":"3"},
+        "TXEN_A" : {"bits":"2"},
+        "MAC" : {"bits":"1:0", "options":{"CHAB":3, "CHA":1, "CHB":2, "NONE":0}}
+    },
+    "default": "11111111 11111111"
+},
+{
+    "addr" : "0x0021",
+    "fields" : {
+        "TX_CLK_PE" : {"bits":"11"},
+        "RX_CLK_PE" : {"bits":"10"},
+        "SDA_PE" : {"bits":"9"},
+        "SDA_DS" : {"bits":"8"},
+        "SCL_PE" : {"bits":"7"},
+        "SCL_DS" : {"bits":"6"},
+        "SDIO_DS" : {"bits":"5"},
+        "SDIO_PE" : {"bits":"4"},
+        "SDO_PE" : {"bits":"3"},
+        "SCLK_PE" : {"bits":"2"},
+        "SEN_PE" : {"bits":"1"},
+        "SPIMODE" : {"bits":"0",
+            "options":{
+                "3wire":0,
+                "4wire":1
+            }
+        }
+    },
+    "default": "00001110 10011111"
+},
+{
+    "addr" : "0x0022",
+    "fields" : {
+        "DIQ2_DS" : {"bits":"11",
+            "options":{"4ma":0, "8ma":1}
+        },
+        "DIQ2_PE" : {"bits":"10"},
+        "IQ_SEL_EN_2_PE" : {"bits":"9"},
+        "TXNRX2_PE" : {"bits":"8"},
+        "FCLK2_PE" : {"bits":"7"},
+        "MCLK2_PE" : {"bits":"6"},
+        "DIQ1_DS" : {"bits":"5",
+            "options":{"4ma":0, "8ma":1}
+        },
+        "DIQ1_PE" : {"bits":"4"},
+        "IQ_SEL_EN_1_PE" : {"bits":"3"},
+        "TXNRX1_PE" : {"bits":"2"},
+        "FCLK1_PE" : {"bits":"1"},
+        "MCLK1_PE" : {"bits":"0"}
+    },
+    "default": "00000111 11011111"
+},
+{
+    "addr" : "0x0022",
+    "fields" : {
+        "DIQ2_DS" : {"bits":"11"},
+        "DIQ2_PE" : {"bits":"10"},
+        "IQ_SET_EN_2_PE" : {"bits":"9"},
+        "TXNRX2_PE" : {"bits":"8"},
+        "FCLK2_PE" : {"bits":"7"},
+        "MCLK2_PE" : {"bits":"6"},
+        "DIQ1_DS" : {"bits":"5"},
+        "DIQ1_PE" : {"bits":"4"},
+        "IQ_SET_EN_1_PE" : {"bits":"3"},
+        "TXNRX1_PE" : {"bits":"2"},
+        "FCLK1_PE" : {"bits":"1"},
+        "MCLK1_PE" : {"bits":"0"}
+    },
+    "default": "00000111 11011111"
+},
+{
+    "addr" : "0x0023",
+    "fields" : {
+        "DIQDIRCTR2" : {"bits":"15"},
+        "DIQDIR2" : {"bits":"14",
+            "options":{
+                "Output":0,
+                "Input":1
+            }
+        },
+        "DIQDIRCTR1" : {"bits":"13"},
+        "DIQDIR1" : {"bits":"12",
+            "options":{
+                "Output":0,
+                "Input":1
+            }
+        },
+        "ENABLEDIRCTR2" : {"bits":"11"},
+        "ENABLEDIR2" : {"bits":"10",
+            "options":{
+                "Output":0,
+                "Input":1
+            }
+        },
+        "ENABLEDIRCTR1" : {"bits":"9"},
+        "ENABLEDIR1" : {"bits":"8",
+            "options":{
+                "Output":0,
+                "Input":1
+            }
+        },
+        "MOD_EN" : {"bits":"6"},
+        "LML2_FIDM" : {"bits":"5"},
+        "LML2_RXNTXIQ" : {"bits":"4",
+            "options":{
+                "RXIQ":0,
+                "TXIQ":1
+            }
+        },
+        "LML2_MODE" : {"bits":"3",
+            "options":{
+                "TRXIQ":0,
+                "JESD207":1
+            }
+        },
+        "LML1_FIDM" : {"bits":"2"},
+        "LML1_RXNTXIQ" : {"bits":"1",
+            "options":{
+                "RXIQ":0,
+                "TXIQ":1
+            }
+        },
+        "LML1_MODE" : {"bits":"0",
+            "options":{
+                "TRXIQ":0,
+                "JESD207":1
+            }
+        }
+    },
+    "default": "01010101 01011001"
+},
+{
+    "addr" : "0x0024",
+    "fields" : {
+        "LML1_S3S" : {"bits":"15:14", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML1_S2S" : {"bits":"13:12", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML1_S1S" : {"bits":"11:10", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML1_S0S" : {"bits":"9:8", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML1_BQP" : {"bits":"7:6"},
+        "LML1_BIP" : {"bits":"5:4"},
+        "LML1_AQP" : {"bits":"3:2"},
+        "LML1_AIP" : {"bits":"1:0"}
+    },
+    "default": "11100100 11100100"
+},
+{
+    "addr" : "0x0025",
+    "fields" : {
+        "LML1_BB2RF_PST" : {"bits":"11:8"},
+        "LML1_BB2RF_PRE" : {"bits":"4:0"}
+    },
+    "default": "00000001 00000001"
+},
+{
+    "addr" : "0x0026",
+    "fields" : {
+        "LML1_RF2BB_PST" : {"bits":"11:8"},
+        "LML1_RF2BB_PRE" : {"bits":"4:0"}
+    },
+    "default": "00000001 00000001"
+},
+{
+    "addr" : "0x0027",
+    "fields" : {
+        "LML2_S3S" : {"bits":"15:14", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML2_S2S" : {"bits":"13:12", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML2_S1S" : {"bits":"11:10", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML2_S0S" : {"bits":"9:8", "options":{"BQ":3, "BI":2, "AQ":1, "AI":0}},
+        "LML2_BQP" : {"bits":"7:6"},
+        "LML2_BIP" : {"bits":"5:4"},
+        "LML2_AQP" : {"bits":"3:2"},
+        "LML2_AIP" : {"bits":"1:0"}
+    },
+    "default": "11100100 11100100"
+},
+{
+    "addr" : "0x0028",
+    "fields" : {
+        "LML2_BB2RF_PST" : {"bits":"11:8"},
+        "LML2_BB2RF_PRE" : {"bits":"4:0"}
+    },
+    "default": "00000001 00000001"
+},
+{
+    "addr" : "0x0029",
+    "fields" : {
+        "LML2_RF2BB_PST" : {"bits":"11:8"},
+        "LML2_RF2BB_PRE" : {"bits":"4:0"}
+    },
+    "default": "00000001 00000001"
+},
+{
+    "addr" : "0x002A",
+    "fields" : {
+        "RX_MUX" : {"bits":"11:10",
+            "options":{
+                "RxTSP":0,
+                "TxFIFO":1,
+                "LFSR":2,
+                "LFSR_":3
+            }
+        },
+        "TX_MUX" : {"bits":"9:8",
+            "options":{
+                "RxTSP":2,
+                "RxTSP_":3,
+                "PORT2":1,
+                "PORT1":0
+            }
+        },
+        "TXRDCLK_MUX" : {"bits":"7:6",
+            "options":{
+                "TxTSPCLK":2,
+                "TxTSPCLK_":3,
+                "FCLK2":1,
+                "FCLK1":0
+            }
+        },
+        "TXWRCLK_MUX" : {"bits":"5:4",
+            "options":{
+                "RxTSPCLK":2,
+                "RxTSPCLK_":3,
+                "FCLK2":1,
+                "FCLK1":0
+            }
+        },
+        "RXRDCLK_MUX" : {"bits":"3:2",
+            "options":{
+                "FCLK2":3,
+                "FCLK1":2,
+                "MCLK2":1,
+                "MCLK1":0
+            }
+        },
+        "RXWRCLK_MUX" : {"bits":"1:0",
+            "options":{
+                "RxTSPCLK":2,
+                "RxTSPCLK_":3,
+                "FCLK2":1,
+                "FCLK1":0
+            }
+        }
+    },
+    "default" : "00000000 10000110"
+},
+{
+    "addr" : "0x002B",
+    "fields" : {
+        "FCLK2_INV" : {"bits":"15"},
+        "FCLK1_INV" : {"bits":"14"},
+        "MCLK2_INV" : {"bits":"9"},
+        "MCLK1_INV" : {"bits":"8"},
+        "MCLK2SRC" : {"bits":"5:4",
+            "options":{
+                "RxTSPCLKA":3,
+                "TxTSPCLKA":2,
+                "RxTSPCLKA_DIV":1,
+                "TxTSPCLKA_DIV":0
+            }
+        },
+        "MCLK1SRC" : {"bits":"3:2",
+            "options":{
+                "RxTSPCLKA":3,
+                "TxTSPCLKA":2,
+                "RxTSPCLKA_DIV":1,
+                "TxTSPCLKA_DIV":0
+            }
+        },
+        "TXDIVEN" : {"bits":"1"},
+        "RXDIVEN" : {"bits":"0"}
+    },
+    "default" : "00000000 00010000"
+},
+{
+    "addr" : "0x002C",
+    "fields" : {
+        "TXTSPCLK_DIV" : {"bits":"15:8"},
+        "RXTSPCLK_DIV" : {"bits":"7:0"}
+    },
+    "default": "11111111 11111111"
+},
+{
+    "addr" : "0x002E",
+    "fields" : {
+        "MIMO_SISO" : {"bits":"15"}
+    },
+    "default": "00000000 00000000"
+},
+{
+    "addr" : "0x002F",
+    "fields" : {
+        "VER" : {"bits":"15:11"},
+        "REV" : {"bits":"10:6"},
+        "MASK" : {"bits":"5:0"}
+    },
+    "default": "00111000 01000000"
+}
+]
+
