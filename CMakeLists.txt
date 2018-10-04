@@ -61,7 +61,10 @@ endif()
 add_library(lms7compact ${LIBLMS7_TYPE} ${LIBLMS7_FILES})
 
 install(TARGETS lms7compact DESTINATION ${LIBLMS7002M_LIBRARY_DIR})
-
+########################################################################
+# install headers
+########################################################################
+install(FILES liblms7002m.h DESTINATION ${LIBLMS7002M_INCLUDE_DIR})
 
 ########################################################################
 # package generator
@@ -69,7 +72,7 @@ install(TARGETS lms7compact DESTINATION ${LIBLMS7002M_LIBRARY_DIR})
 if(NOT CPACK_GENERATOR)
     set(CPACK_GENERATOR DEB)
 endif()
-set(CPACK_PACKAGE_NAME                "lib${LIB_LMS7002M_NAME}")
+set(CPACK_PACKAGE_NAME                "liblms7002m")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "lms7002m compact library")
 set(CPACK_PACKAGE_VENDOR              "Fairwaves, Inc.")
 set(CPACK_PACKAGE_CONTACT             "http://fairwaves.co/wp/contact-us/")
