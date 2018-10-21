@@ -41,12 +41,17 @@ set(CROSS_COMPILE_LIB_PATH     "/usr/${CC_ARCH}/lib")
 set(LIBLMS7002M_LIBRARY_DIR      lib${LIB_SUFFIX})
 set(LIBLMS7002M_INCLUDE_DIR      include)
 
+find_package(PythonInterp REQUIRED)
+execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from Cheetah.Template import Template" RESULT_VARIABLE retcode ERROR_QUIET OUTPUT_QUIET)
+if(NOT "${retcode}" STREQUAL "0")
+    message(FATAL_ERROR "Python module Cheetah is reuired! Install 'python-cheetah' package.")
+endif()
 
 file(GLOB LMS7002M_REG_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/regs/*.json")
 
 add_custom_command(
     OUTPUT  ${CMAKE_CURRENT_BINARY_DIR}/lms7002m_defs.h
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/regs/genenum.sh ${CMAKE_CURRENT_BINARY_DIR}/lms7002m_defs.h
+    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/regs/enum_parser.py ${LMS7002M_REG_SOURCES} > ${CMAKE_CURRENT_BINARY_DIR}/lms7002m_defs.h
     DEPENDS ${LMS7002M_REG_SOURCES}
 )
 
