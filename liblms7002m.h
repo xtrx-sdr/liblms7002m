@@ -87,7 +87,13 @@ enum lms7_async_tasks {
 LMS7_EXTERN_API int lms7_spi_transact(struct lms7_state* s, uint16_t ival, uint32_t* oval);
 LMS7_EXTERN_API int lms7_spi_post(struct lms7_state* s, unsigned count, const uint32_t* regs);
 #ifdef LMS7_LOGGING
-LMS7_EXTERN_API void lms7_log(struct lms7_state* s, const char* fmt, ...) __attribute__ ((format (printf, 2, 3)));
+LMS7_EXTERN_API void lms7_log_ex(struct lms7_state* s,
+								 const char* function,
+								 const char* file,
+								 int line_no,
+								 const char* fmt, ...) __attribute__ ((format (printf, 5, 6)));
+#define lms7_log(s, ...) \
+		lms7_log_ex(s, __FUNCTION__, __FILE__, __LINE__, __VA_ARGS__)
 #else
 #define lms7_log(s, fmt, ...)
 #endif
