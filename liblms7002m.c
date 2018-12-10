@@ -489,9 +489,7 @@ static int _sxx_set_vcon(struct lms7_state* st, unsigned i,
 						 unsigned sxx_vco, bool lochen)
 {
 	struct vco_nint_nfrac vc;
-	vc = lms7_pll_calc(/*i == 0 ? st->fref / 2 : */
-					   i == 3 ? st->fref * 2 : st->fref,
-					   sxx_vco);
+	vc = lms7_pll_calc(i == 3 ? st->fref / 2 : st->fref, sxx_vco);
 
 	lms7_log(st, "SXX: VCO%u N=%d frac=%d", i, vc.nint, vc.frac);
 	uint32_t sxx_pll_regs[] = {
@@ -577,7 +575,7 @@ int lms7_sxx_tune_sync(struct lms7_state* st, bool rx, unsigned lofreq,
 	for (unsigned t = 0; t < 8; t++) {
 		pcap = -1;
 		pvco_idx = 0;
-		uint8_t plo, phi;
+		uint8_t plo = 0, phi = 0;
 		for (unsigned i = 0; i < 4; i++) {
 			if (!vcoit[i])
 				continue;
@@ -595,12 +593,12 @@ int lms7_sxx_tune_sync(struct lms7_state* st, bool rx, unsigned lofreq,
 
 			int mid = ((int)plo + phi) / 2;
 			lms7_log(st, "SX%c: VCO%d [%d;%d] -> %d",
-					 (rx ? 'R' : 'T'), vcono[i], plo, phi, mid);
+					 (rx ? 'R' : 'T'), i, plo, phi, mid);
 
 			if (pcap == -1 || pcap > mid) {
 				pcap = mid;
 				pvco_idx = i;
-			} if (i == 3 && pcap != -1) {
+			} if (i == 3 && pcap != -1 && pvco_idx != 3) {
 				lms7_log(st, "SX%c: restore to VCO%d",
 						 (rx ? 'R' : 'T'), pvco_idx);
 
