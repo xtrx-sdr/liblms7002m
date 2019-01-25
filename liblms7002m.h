@@ -163,6 +163,7 @@ int lms7_rbb_disable(struct lms7_state* st);
 int lms7_rbb_set_path(struct lms7_state* st, enum rbb_path path);
 int lms7_rbb_set_pga(struct lms7_state* st, unsigned gain);
 int lms7_rbb_set_bandwidth(struct lms7_state* st, unsigned bw);
+int lms7_rbb_set_ext(struct lms7_state* st);
 
 // AFE functions
 int lms7_afe_ctrl(struct lms7_state* st, bool rxa, bool rxb, bool txa, bool txb);
