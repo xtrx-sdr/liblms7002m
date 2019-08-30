@@ -46,13 +46,15 @@ enum lms7_mac_mode {
 
 // State of xtsp block
 struct lms7_tsp_state {
-	uint16_t reg_0x0c;
+	uint16_t reg_0x0c; // preserve bypass flags
+	uint16_t reg_0x03; // preserve decimation/interpolation
 };
 
-struct lms7_filters_state {
-	uint8_t rbb0_path:3;
-	uint8_t rbb1_path:3;
+struct lms7_comb_state {
+	uint8_t rfe_tia_g:2;
+	uint8_t rfe_lna_g:5;
 };
+
 
 struct lms7_state {
 	// Global parameters
@@ -62,8 +64,8 @@ struct lms7_state {
 	uint16_t reg_0x0020;
 	uint8_t reg_0x0124[2]; //EN_DIR for SXX/RBB/RFE/TBB/TRF
 
-	// RBB & TBB major states
-	struct lms7_filters_state xbbst;
+	// LMS7 major states
+	struct lms7_comb_state cbst[2];
 
 	// Configuration for A&B channels
 	struct lms7_tsp_state rxtsp;
@@ -144,10 +146,13 @@ enum rfe_path {
 	RFE_LNAW,
 	RFE_LBW,
 	RFE_LBL,
+	RFE_LBH,
 };
 int lms7_rfe_disable(struct lms7_state* st);
 int lms7_rfe_set_path(struct lms7_state* st, enum rfe_path p, bool rfea_en, bool rfeb_en);
 int lms7_rfe_set_lna(struct lms7_state* st, unsigned atten, unsigned *paout);
+int lms7_rfe_set_tia(struct lms7_state* st, unsigned atten, unsigned *paout);
+
 int lms7_rfe_set_lblna(struct lms7_state* st, unsigned attenx4, unsigned *paout);
 
 // RBB functions
@@ -179,13 +184,6 @@ int lms7_ldo_enable(struct lms7_state* st, bool enable);
 int lms7_xbuf_enable(struct lms7_state* st, bool bias, bool enable);
 
 // RXTSP
-//  freq
-//  decim
-//  tsg_const
-//  read_rssi
-//  dc_corr
-//  iq_corr
-
 int lms7_rxtsp_get_rssi(struct lms7_state* st, unsigned mode, uint32_t *orssi);
 int lms7_rxtsp_disable(struct lms7_state* st);
 int lms7_rxtsp_init(struct lms7_state* st, unsigned decim_ord);
@@ -193,6 +191,8 @@ int lms7_rxtsp_cmix(struct lms7_state* st, int32_t freq);
 int lms7_rxtsp_tsg_const(struct lms7_state* st, int16_t vi, int16_t vq);
 int lms7_rxtsp_tsg_tone(struct lms7_state* st, bool fs, bool div4);
 int lms7_rxtsp_dc_corr(struct lms7_state* st, unsigned wnd);
+int lms7_rxtsp_iq_gcorr(struct lms7_state* st, unsigned ig, unsigned qg);
+int lms7_rxtsp_iq_phcorr(struct lms7_state* st, int acorr);
 
 // TXTSP
 int lms7_txtsp_disable(struct lms7_state* st);
@@ -200,6 +200,8 @@ int lms7_txtsp_init(struct lms7_state* st, unsigned interp_ord);
 int lms7_txtsp_cmix(struct lms7_state* st, int32_t freq);
 int lms7_txtsp_tsg_const(struct lms7_state* st, int16_t vi, int16_t vq);
 int lms7_txtsp_tsg_tone(struct lms7_state* st, bool fs, bool div4);
+int lms7_txtsp_iq_gcorr(struct lms7_state* st, unsigned ig, unsigned qg);
+int lms7_txtsp_iq_phcorr(struct lms7_state* st, int acorr);
 
 // TBB
 enum tbb_path {
@@ -218,11 +220,17 @@ int lms7_tbb_set_bandwidth(struct lms7_state* st, unsigned bw);
 int lms7_trf_disable(struct lms7_state* st);
 int lms7_trf_enable(struct lms7_state* st, bool cha, bool chb);
 int lms7_trf_set_pad(struct lms7_state* st, unsigned atten);
+int lms7_trf_set_padlb(struct lms7_state* st, unsigned atten, unsigned lbloss);
 int lms7_trf_set_path(struct lms7_state* st, unsigned band);
 
 // DC
 int lms7_dc_init(struct lms7_state* st, bool rxaen, bool rxben, bool txaen, bool txben);
 int lms7_dc_start(struct lms7_state* st, bool rxa, bool rxb, bool txa, bool txb);
+int lms7_dc_rxa_set(struct lms7_state* st, int16_t i, int16_t q);
+int lms7_dc_rxb_set(struct lms7_state* st, int16_t i, int16_t q);
+int lms7_dc_txa_set(struct lms7_state* st, int16_t i, int16_t q);
+int lms7_dc_txb_set(struct lms7_state* st, int16_t i, int16_t q);
+
 
 // Helper functions
 
