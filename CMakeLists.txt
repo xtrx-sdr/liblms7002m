@@ -41,11 +41,11 @@ set(CROSS_COMPILE_LIB_PATH     "/usr/${CC_ARCH}/lib")
 set(LIBLMS7002M_LIBRARY_DIR      lib${LIB_SUFFIX})
 set(LIBLMS7002M_INCLUDE_DIR      include)
 
-find_package(PythonInterp 2.7 REQUIRED)
+find_package(PythonInterp 3.4 REQUIRED)
 message(STATUS "Python found at ${PYTHON_EXECUTABLE}")
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from Cheetah.Template import Template" RESULT_VARIABLE retcode)
 if(NOT "${retcode}" STREQUAL "0")
-    message(FATAL_ERROR "Python module Cheetah is reuired! Install 'python-cheetah' package.")
+    message(FATAL_ERROR "Python module Cheetah is reuired! Install 'python3-cheetah' package.")
 endif()
 
 file(GLOB LMS7002M_REG_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/regs/*.json")

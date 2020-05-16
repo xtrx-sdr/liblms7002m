@@ -7,6 +7,7 @@ import sys
 import os
 import re
 import json
+import functools
 from Cheetah.Template import Template
 
 def get_name(reg, field_name, category):
@@ -30,7 +31,7 @@ def get_default(reg):
 def get_options(reg, field_name):
     field = reg['fields'][field_name]
     if 'options' in field:
-        return [(('%s_%s'%(get_name(reg, field_name, "OPT"), k)).upper(), v) for k,v in sorted(field['options'].iteritems(), key=lambda x:x[1])]
+        return [(('%s_%s'%(get_name(reg, field_name, "OPT"), k)).upper(), v) for k,v in sorted(field['options'].items(), key=lambda x:x[1])]
     return None
 
 def get_shift_mask(reg, field_name):
@@ -45,10 +46,10 @@ def get_shift_mask(reg, field_name):
     return int(bits), "0x1"
 
 def sorted_field_keys(reg):
-    return reversed(sorted(reg['fields'].keys(), key=lambda x: map(int, reg['fields'][x]['bits'].split(':'))[0]))
+    return reversed(sorted(reg['fields'].keys(), key=lambda x: list(map(int, reg['fields'][x]['bits'].split(':')))[0]))
 
 def sorted_field_keys_str(reg):
-    return reduce(lambda x, y: str(x) + ", " + str(y), sorted_field_keys(reg))
+    return functools.reduce(lambda x, y: str(x) + ", " + str(y), sorted_field_keys(reg))
 
 HEAD="""
 /* LMS7002 definitions for HOST/MCU operations */
@@ -121,7 +122,7 @@ enum lms7002_reg_idxs {
 """
 
 if __name__ == '__main__':
-    print HEAD
+    print(HEAD)
 
     regs = list()
     for arg in sys.argv[1:]:
@@ -145,7 +146,7 @@ if __name__ == '__main__':
                 sorted_field_keys=sorted_field_keys,
                 sorted_field_keys_str=sorted_field_keys_str,
             )))
-            print code
+            print(code)
 
 
 
@@ -164,4 +165,4 @@ if __name__ == '__main__':
         sorted_field_keys_str=sorted_field_keys_str,
     )))
 
-    print code
+    print(code)
